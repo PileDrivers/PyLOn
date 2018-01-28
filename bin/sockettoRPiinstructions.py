@@ -23,9 +23,9 @@ class PylonNamespace(BaseNamespace):
 
     def talk(self, words):
         tts = gTTS(text=words, lang='en')
-        filename = words + ".mp3"
+        filename = words.replace(' ','_') + ".mp3"
         tts.save(filename)
-        os.system("mpg321 " + filename)
+        os.system("mpg123 " + filename)
 
     def on_event(self, *args):
         #print(args[0])

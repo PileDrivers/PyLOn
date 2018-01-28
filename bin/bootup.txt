@@ -4,5 +4,5 @@
 # To the boot process of the device this is installed on
 
 echo "Starting streaming service and serial stuff with the pi"
-raspivid -o - -t 0 -vf -hf -fps 24 -b 300000 | ffmpeg -re -ar 44100 -ac 2 -acodec pcm_s161e -f s161e -ac 2 -i /dev/zero 0f h264 -i - -vcodec copy -acodec aac -ab 128k -g 50 -strict experimental -f flv rmtp://live/twitch.tv/app/live_193355768_27iN4frK9i5GJAJmtR47Rfx6MfRSSK &
-python movement.py &
+python3 sockettoRPiinstructions.py &
+raspivid -o - -t 0 -vf -hf -fps 24 -b 300000 | ffmpeg -re -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -f h264 -i - -vcodec copy -acodec aac -ab 128k -g 50 -strict experimental -f flv rtmp://live.twitch.tv/app/live_193355768_Z7iN4frK9i5GJAJmtR47Rfx6MfRSSK &
