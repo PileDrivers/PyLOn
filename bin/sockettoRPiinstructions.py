@@ -10,7 +10,7 @@ from socketIO_client import SocketIO, BaseNamespace
 FETChannels = [7,11] # Left motor is pin 7, right motor is pin 11
 
 ser = serial.Serial(
-    port='COM6',
+    port='/dev/ttyACM0',
     baudrate=9600,
     parity=serial.PARITY_ODD,
     stopbits=serial.STOPBITS_TWO,
@@ -39,16 +39,18 @@ def main():
     print('run check') #/dev/ttyUSB1
     ser.isOpen(); print('Serial Open')
 
-    socketIO = SocketIO('localhost', 5000)
+    #socketIO = SocketIO('localhost', 5000)
     #socketIO.wait(seconds=1)
-    pylon_namespace = socketIO.define(PylonNamespace, '/pylon')
-    socketIO.wait()
+    #pylon_namespace = socketIO.define(PylonNamespace, '/pylon')
+    #socketIO.wait()
 
-    # while 1:
+    while 1:
 
-    #     ser.write('1'.encode('utf-8'))
-    #     time.sleep(2)
-        # print(a)s
+        ser.write('3'.encode('utf-8'))
+        time.sleep(2)
+        print('ggg')
+
+     # print(a)s
 
 if __name__ == "__main__":
     main()
