@@ -2,6 +2,8 @@
 import time
 import serial
 from socketIO_client import SocketIO, BaseNamespace
+from gtts import gTTS
+import os
 
 # import logging
 # logging.getLogger('requests').setLevel(logging.WARNING)
@@ -12,15 +14,18 @@ from socketIO_client import SocketIO, BaseNamespace
 ser = serial.Serial(
     port='COM6',
     baudrate=9600,
-    parity=serial.PARITY_ODD,
-    stopbits=serial.STOPBITS_TWO,
-    bytesize=serial.SEVENBITS
 )
 
 class PylonNamespace(BaseNamespace):
     
     def on_connect(self):
         print('[Connected to Node]')
+
+    def talk(self, words):
+        tts = gTTS(text=words, lang='en')
+        filename = words + ".mp3"
+        tts.save(filename)
+        os.system("mpg321 " + filename)
 
     def on_event(self, *args):
         #print(args[0])
@@ -33,6 +38,9 @@ class PylonNamespace(BaseNamespace):
             ser.write('3'.encode('utf-8'))
         elif command == "forward":
             ser.write('1'.encode('utf-8'))
+        elif command == "speak1" or command == "speak2" or command == "speak3":
+            speak_text = args[1]['data']
+            self.talk(speak_text)
 
 def main():
    
@@ -40,7 +48,6 @@ def main():
     ser.isOpen(); print('Serial Open')
 
     socketIO = SocketIO('https://pylon-driver-101.herokuapp.com/', verify=False)
-    #socketIO.wait(seconds=1)
     pylon_namespace = socketIO.define(PylonNamespace, '/pylon')
     socketIO.wait()
 

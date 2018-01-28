@@ -1,2 +1,3 @@
 socketIO-client-2-master.zip
 pyserial
+gTTS
