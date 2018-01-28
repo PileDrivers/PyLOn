@@ -7,7 +7,7 @@ from socketIO_client import SocketIO, BaseNamespace
 # logging.getLogger('requests').setLevel(logging.WARNING)
 # logging.basicConfig(level=logging.DEBUG)
 
-FETChannels = [7,11] # Left motor is pin 7, right motor is pin 11
+# FETChannels = [7,11] # Left motor is pin 7, right motor is pin 11
 
 ser = serial.Serial(
     port='/dev/ttyACM0',
@@ -28,18 +28,17 @@ class PylonNamespace(BaseNamespace):
         command = args[1]['command']
         #print(command)
         if command == "left":
-            ser.write('1'.encode('utf-8'))
-        elif command == "right":
             ser.write('2'.encode('utf-8'))
-        elif command == "forward":
+        elif command == "right":
             ser.write('3'.encode('utf-8'))
+        elif command == "forward":
+            ser.write('1'.encode('utf-8'))
 
 def main():
    
     print('run check') #/dev/ttyUSB1
     ser.isOpen(); print('Serial Open')
-
-    #socketIO = SocketIO('localhost', 5000)
+    #socketIO = SocketIO('https://pylon-driver-101.herokuapp.com/', verify=False)
     #socketIO.wait(seconds=1)
     #pylon_namespace = socketIO.define(PylonNamespace, '/pylon')
     #socketIO.wait()
