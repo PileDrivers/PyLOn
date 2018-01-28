@@ -51,9 +51,9 @@ def main():
     pylon_namespace = socketIO.define(PylonNamespace, '/pylon')
     socketIO.wait()
 
-        ser.write('3'.encode('utf-8'))
-        time.sleep(2)
-        print('ggg')
+        # ser.write('3'.encode('utf-8'))
+        # time.sleep(2)
+        # print('ggg')
 
      # print(a)s
 
