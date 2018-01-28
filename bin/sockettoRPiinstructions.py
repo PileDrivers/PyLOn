@@ -9,13 +9,13 @@ from socketIO_client import SocketIO, BaseNamespace
 
 FETChannels = [7,11] # Left motor is pin 7, right motor is pin 11
 
-ser = serial.Serial(
-    port='COM6',
-    baudrate=9600,
-    parity=serial.PARITY_ODD,
-    stopbits=serial.STOPBITS_TWO,
-    bytesize=serial.SEVENBITS
-)
+# ser = serial.Serial(
+#     port='COM6',
+#     baudrate=9600,
+#     parity=serial.PARITY_ODD,
+#     stopbits=serial.STOPBITS_TWO,
+#     bytesize=serial.SEVENBITS
+# )
 
 class PylonNamespace(BaseNamespace):
     
@@ -37,9 +37,9 @@ class PylonNamespace(BaseNamespace):
 def main():
    
     print('run check') #/dev/ttyUSB1
-    ser.isOpen(); print('Serial Open')
+    #ser.isOpen(); print('Serial Open')
 
-    socketIO = SocketIO('localhost', 5000)
+    socketIO = SocketIO('https://pylon-voting-server.herokuapp.com', verify=False)
     #socketIO.wait(seconds=1)
     pylon_namespace = socketIO.define(PylonNamespace, '/pylon')
     socketIO.wait()
