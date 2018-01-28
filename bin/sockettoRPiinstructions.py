@@ -12,7 +12,7 @@ import os
 # FETChannels = [7,11] # Left motor is pin 7, right motor is pin 11
 
 ser = serial.Serial(
-    port='COM6',
+    port='/dev/ttyACM0',
     baudrate=9600,
 )
 
@@ -51,11 +51,11 @@ def main():
     pylon_namespace = socketIO.define(PylonNamespace, '/pylon')
     socketIO.wait()
 
-    # while 1:
+        ser.write('3'.encode('utf-8'))
+        time.sleep(2)
+        print('ggg')
 
-    #     ser.write('1'.encode('utf-8'))
-    #     time.sleep(2)
-        # print(a)s
+     # print(a)s
 
 if __name__ == "__main__":
     main()
