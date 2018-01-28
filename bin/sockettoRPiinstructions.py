@@ -35,7 +35,7 @@ class PylonNamespace(BaseNamespace):
         if command == "left":
             ser.write('2'.encode('utf-8'))
         elif command == "right":
-            ser.write('3'.encode('utf-8'))
+            ser.write('4'.encode('utf-8'))
         elif command == "forward":
             ser.write('1'.encode('utf-8'))
         elif command == "speak1" or command == "speak2" or command == "speak3":
@@ -47,7 +47,7 @@ def main():
     print('run check') #/dev/ttyUSB1
     ser.isOpen(); print('Serial Open')
 
-    socketIO = SocketIO('https://pylon-driver-101.herokuapp.com/', verify=False)
+    socketIO = SocketIO('https://pylon-driver-101.herokuapp.com', verify=False)
     pylon_namespace = socketIO.define(PylonNamespace, '/pylon')
     socketIO.wait()
 
